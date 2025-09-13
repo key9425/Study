@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./components/Header"; // (ESM) vite로 만든 리액트 앱에서 확장자 생략 가능
 import Main from "./components/Main";
 import Footer from "./components/Footer";
+import Jsx from "./components/Jsx";
 
 // 컴포넌트
 // - HTML 태그를 반환하는 함수 (함수 선언식, 화살표 함수)
@@ -13,6 +14,8 @@ function App() {
       <Header />
       <Main />
       <Footer />
+
+      <Jsx />
     </>
   );
 }
