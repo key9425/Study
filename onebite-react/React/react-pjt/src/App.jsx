@@ -22,12 +22,15 @@ function App() {
 
   return (
     <>
+      {/* 컴포넌트 */}
       <Header />
       <Main />
       <Footer />
 
+      {/* JSX */}
       <Jsx />
 
+      {/* Props & Event */}
       <Button {...buttonProps} />
       <Button text={"카페"} />
       <Button text={"블로그"}>
@@ -35,10 +38,13 @@ function App() {
         <Header />
       </Button>
 
+      {/* State & 리렌더링 */}
       <State />
 
+      {/* 사용자 입력 관리 & useRef  */}
       <Register />
 
+      {/* Hooks */}
       <HookExam />
     </>
   );
