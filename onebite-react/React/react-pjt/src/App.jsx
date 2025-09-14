@@ -6,6 +6,7 @@ import Jsx from "./components/Jsx";
 import Button from "./components/Button";
 import State from "./components/State";
 import Register from "./components/Register";
+import HookExam from "./components/HookExam";
 
 // 컴포넌트
 // - HTML 태그를 반환하는 함수 (함수 선언식, 화살표 함수)
@@ -37,6 +38,8 @@ function App() {
       <State />
 
       <Register />
+
+      <HookExam />
     </>
   );
 }
