@@ -10,9 +10,26 @@
 // - 문자열, 숫자 같은 일반적인 값뿐만 아니라 HTML 요소나 컴포넌트까지도 전달 가능
 // - 자식 요소로 배치되어 전달된 HTML 요소나 컴포넌트 -> children 이름의 props로 전달
 
+// Event
+// - 웹 내부에서 발생하는 사용자의 행동
+// - 이벤트 핸들링 : 이벤트가 발생했을 때 그것을 처리하는 것
+// - 이벤트 핸들러 : 이벤트를 처리하는 함수
+// - 호출된 이벤트 핸들러 함수에 매개 변수로 이벤트 객체를 제공
+
 const Button = ({ children, text, color = "black" }) => {
+  const onClickButton = (e) => {
+    console.log(text);
+    console.log(e); // 이벤트 객체
+  };
+
   return (
-    <button style={{ color: color }}>
+    <button
+      onClick={() => {
+        console.log(text);
+      }}
+      onMouseEnter={onClickButton}
+      style={{ color: color }}
+    >
       {text} - {color.toUpperCase()}
       {children}
     </button>
