@@ -46,15 +46,21 @@ function App() {
     setTodos([newTodo, ...todos]);
   };
 
+  // 배열이나 객체 형태의 State를 업데이트할 때 기존 State를 직접 수정하지 않고 새 객체/배열을 만들어 사용하는 이유
+  // - React의 State 변경 감지 및 리렌더링 동작 (React는 State 객체/배열의 '참조'가 변경될 때 리렌더링을 결정 -> 새 객체/배열을 만들면 참조가 달라진다)
   const onUpdate = (targetId) => {
     setTodos(todos.map((todo) => (todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo)));
+  };
+
+  const onDelete = (targetId) => {
+    setTodos(todos.filter((todo) => todo.id !== targetId));
   };
 
   return (
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} onUpdate={onUpdate} />
+      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
     </div>
   );
 }
