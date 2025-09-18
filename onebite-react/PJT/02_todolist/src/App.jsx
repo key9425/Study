@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Editor from "./components/Editor";
 import Header from "./components/Header";
 import List from "./components/List";
@@ -31,11 +31,25 @@ const mockData = [
 
 function App() {
   const [todos, setTodos] = useState(mockData);
+  const idRef = useRef(3);
+
+  const onCreate = (content) => {
+    const newTodo = {
+      id: idRef.current++,
+      isDone: false,
+      content,
+      date: new Date().getTime(),
+    };
+
+    // state 값은 반드시 상태변화함수를 호출해서 수정
+    // -> 변경된 state 값을 리액트가 감지하여 컴포넌트를 정상적으로 리렌더링 할 수 있음
+    setTodos([newTodo, ...todos]);
+  };
 
   return (
     <div className="App">
       <Header />
-      <Editor />
+      <Editor onCreate={onCreate} />
       <List />
     </div>
   );
