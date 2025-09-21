@@ -1,5 +1,5 @@
 import "./App.css";
-import { useRef, useReducer } from "react";
+import { useRef, useReducer, useCallback } from "react";
 import Editor from "./components/Editor";
 import Header from "./components/Header";
 import List from "./components/List";
@@ -47,7 +47,13 @@ function App() {
   const [todos, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
 
-  const onCreate = (content) => {
+  // useCallback
+  // - 불필요한 함수 재생성 방지
+  // - 첫번째 인수로 전달한 콜백함수를 생성해서 반환
+  // - deps에 포함된 값이 변경되었을 때만 함수를 다시 생성하도록 최적화
+  // - 빈 deps인 경우 컴포넌트가 마운트될 때만 함수를 생성
+
+  const onCreate = useCallback((content) => {
     dispatch({
       type: "CREATE",
       data: {
@@ -57,21 +63,21 @@ function App() {
         date: new Date().getTime(),
       },
     });
-  };
+  }, []);
 
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     dispatch({
       type: "UPDATE",
       targetId: targetId,
     });
-  };
+  }, []);
 
-  const onDelete = (targetId) => {
+  const onDelete = useCallback((targetId) => {
     dispatch({
       type: "DELETE",
       targetId: targetId,
     });
-  };
+  }, []);
 
   return (
     <div className="App">
