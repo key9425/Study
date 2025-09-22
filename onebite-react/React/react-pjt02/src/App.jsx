@@ -1,5 +1,5 @@
 import "./App.css";
-import { useRef, useReducer, useCallback } from "react";
+import { useRef, useReducer, useCallback, createContext, useMemo } from "react";
 import Editor from "./components/Editor";
 import Header from "./components/Header";
 import List from "./components/List";
@@ -52,6 +52,19 @@ function reducer(state, action) {
   }
 }
 
+// Context
+// - 컴포넌트간의 데이터를 전달하는 방법
+// - Context : 데이터 보관소 역할을 하는 객체
+// - Provider : Context가 공급하는 데이터, 공급받을 컴포넌트를 설정하는 컴포넌트
+// - Props가 가지고 있던 단점인 Props Drilling 해결
+//    - Props는 '부모->자식'으로만 데이터를 전달
+//    - 계층 구조가 깊어질 경우 바로 전달 불가
+
+// 컴포넌트가 리렌더링 발생하면 value props로 전달한 객체도 다시 생성되어 리렌더링 발생
+// -> Context를 분리해서 해결
+export const TodoStateContext = createContext(); // 변경될 수 있는 값 (state)
+export const TodoDispatchContext = createContext(); // 변경되지 않는 값 (함수)
+
 function App() {
   const [todos, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
@@ -88,11 +101,20 @@ function App() {
     });
   }, []);
 
+  // useMemo에 빈 deps를 전달하여 컴포넌트 mount 이후에 재생성 되지 않도록 설정
+  const memoizedDispatch = useMemo(() => {
+    return { onCreate, onUpdate, onDelete };
+  }, []);
+
   return (
     <div className="App">
       <Header />
-      <Editor onCreate={onCreate} />
-      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatchContext.Provider value={memoizedDispatch}>
+          <Editor />
+          <List />
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
       {/* <ExamReducer /> */}
     </div>
   );

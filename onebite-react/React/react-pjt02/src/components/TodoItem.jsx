@@ -1,7 +1,10 @@
 import "./TodoItem.css";
-import { memo } from "react";
+import { memo, useContext } from "react";
+import { TodoDispatchContext } from "../App";
 
-const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
+const TodoItem = ({ id, isDone, content, date }) => {
+  const { onUpdate, onDelete } = useContext(TodoDispatchContext);
+
   const onChangeCheckbox = () => {
     onUpdate(id);
   };
@@ -20,6 +23,7 @@ const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
   );
 };
 
+// React.memo
 // - todos 변경 -> App 컴포넌트 리렌더링 -> 함수 다시 생성 -> 새로운 함수로써 props 전달 -> memo를 적용하여도 리렌더링 발생
 // - memo 메서드는 현재 props와 과거 props 값을 얕은 비교하기 때문에 객체 타입의 값은 다른 값으로 판단
 // - 객체 타입의 값을 props로 받고 있는 컴포넌트는 memo 메서드를 적용하기만 해서는 최적화 X

@@ -1,8 +1,10 @@
 import "./List.css";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useContext } from "react";
 import TodoItem from "./TodoItem";
+import { TodoStateContext } from "../App";
 
-const List = ({ todos, onUpdate, onDelete }) => {
+const List = () => {
+  const todos = useContext(TodoStateContext);
   const [search, setSearch] = useState("");
 
   const onChangeSearch = (e) => {
@@ -50,7 +52,7 @@ const List = ({ todos, onUpdate, onDelete }) => {
         {/* 배열에 담긴 데이터를 리스트 형태로 렌더링 */}
         {/* 리스트 형태로 렌더링된 컴포넌트(요소)는 구분하기 위해 반드시 key라는 prop을 고유한 값으로 전달 */}
         {filteredTodos.map((todo) => {
-          return <TodoItem key={todo.id} {...todo} onUpdate={onUpdate} onDelete={onDelete} />;
+          return <TodoItem key={todo.id} {...todo} />;
         })}
       </div>
     </div>
