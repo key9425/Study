@@ -105,3 +105,71 @@
 - 브라우저는 웹 페이지 로딩 시 기본적으로 HTML 파일을 읽음
 
 - 리액트에서 HTML 태그를 리턴하는 함수를 '컴포넌트'라고 부름 (ex. App 컴포넌트)
+
+---
+
+### 📍 페이지 라우팅
+
+- 다양한 페이지를 제공하는 방법
+- 경로에 따라 알맞은 페이지를 렌더링 하는 과정
+- React App은 SPA 방식 채택
+- `npm i react-router-dom`
+
+![alt text](./readme-image/image-6.png)
+
+### 📍 MPA (Multi Page Application) & SSR (Sever Side Rendering)
+
+- MPA (Multi Page Application)
+
+  - 서버가 다수의 페이지(HTML파일)를 보유
+  - 동작 방식이 매우 직관적, 많은 서비스가 사용하는 전통적인 방식
+
+- SSR (Sever Side Rendering)
+
+  - 브라우저가 페이지를 요청했을 때 서버에서 미리 완성되어 있는 페이지를 응답하는 방식
+
+- MPA 방식의 페이지 이동
+
+  1. 브라우저에서 페이지 요청
+  2. 서버는 HTML 파일 탐색 후 반환
+  3. 브라우저는 이전 페이지를 전부 제거하고, 새로운 페이지를 렌더링
+
+- MPA 방식의 단점
+
+  - 공통으로 사용되는 요소가 있어도 제거하고 새로 렌더링하기 때문에 비효율적
+  - 화면이 새로고침 되는 것처럼 깜빡이기 때문에 매끄럽지 않음
+  - 다수의 사용자 접속시, 서버의 부하가 심해짐
+
+![alt text](./readme-image/image-7.png)
+![alt text](./readme-image/image-8.png)
+
+### 📍 SPA (Single Page Application) & CSR (Client Side Rendering)
+
+- SPA (Single Page Application)
+
+  - 서버는 기본 틀 역할을 하는 페이지(index.html) 하나만 보유 + JS파일
+  - Bundling : 여러 개의 JS 파일을 하나의 JS 파일로 묶어주는 것 (vite가 담당)
+  - Bundle JS File : 컴포넌트 등 React의 모든 정보가 포함, React App이라 부름
+
+- CSR (Client Side Rendering)
+
+  - 클라이언트측인 브라우저에서 직접 JS 파일을 실행해서 렌더링을 처리하는 방식
+
+- SPA 방식의 페이지 이동
+
+  1. 서버는 요청 경로 관계 없이 브라우저에 index.html 전달
+  2. 브라우저는 index.html을 렌더링 (아무것도 렌더링 안됨, script 태그를 이용하여 main.jsx 가동)
+  3. 서버는 후속으로 Bundle JS File 전달
+  4. 브라우저에서 직접 Bundle JS File 실행
+  5. main.jsx 파일이 실행되면서 render 메서드가 호출되어 App 컴포넌트 렌더링
+
+- SPA 방식의 장점
+  - 공통 컴포넌트는 유지하고, 필요한 컴포넌트만 교체하기 때문에 매끄럽고 효율적
+  - 서버에 요청을 보내지 않고 브라우저 내에서 React App을 실행해서 컴포넌트를 렌더링하기 때문에 다수의 사용자가 접속해도 서버의 부하에 크게 상관 없음
+
+![alt text](./readme-image/image-9.png)
+![alt text](./readme-image/image-10.png)
+![alt text](./readme-image/image-11.png)
+![alt text](./readme-image/image-12.png)
+![alt text](./readme-image/image-13.png)
+![alt text](./readme-image/image-14.png)
